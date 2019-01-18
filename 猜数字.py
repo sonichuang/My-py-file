@@ -6,7 +6,7 @@ if guess == 8:
         print ( '猜中了也没有奖励！ ' )
 else :
         print ( '我心里想的是8。' )
-print ( '不玩了！' )
+print ( '不玩了，游戏结束。' )
     
    
     
