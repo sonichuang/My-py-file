@@ -15,7 +15,6 @@ def translate(content):
     salt = str(ts) + str(num)
     flowerStr = 'p09@Bn{h02_BIEe]$P^nG'
     sign = hashlib.md5((client + content + salt + flowerStr).encode('utf-8')).hexdigest()
-
     data = {}
     data['i'] = content
     data['from'] = 'AUTO'
@@ -34,17 +33,23 @@ def translate(content):
     #解析表单数据并编码
     data = up.urlencode(data).encode('utf-8')
     #下面的header数据需要填入,并实例化
-    req = ur.Request(url = url, data = data, method = 'POST')
+    req = ur.Request(url = url, data = data, method = 'POST')   
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36')
     req.add_header('Referer', 'http://fanyi.youdao.com/')
     req.add_header('Cookie', 'OUTFOX_SEARCH_USER_ID=602357771@10.169.0.84')
-    #请求并接受反馈信息, timeout是以秒单位确定连接的超时时间
-    response = ur.urlopen(req, timeout = 5)
-    #读取反馈信息并解码
-    html = response.read().decode('utf-8')
-    #利用json库把json数据转化为python的列表或者字典
-    result = json.loads(html)['translateResult'][0][0]['tgt']
-    return result
+#处理网络问题异常
+    try:
+        #请求并接受反馈信息, timeout是以秒单位确定连接的超时时间
+        response = ur.urlopen(req, timeout = 5)
+    except: #提示错误
+        result = 'Error, please check your connection.出问题了, 请检查网络连接。'
+        return result
+    else:
+        #读取反馈信息并解码
+        html = response.read().decode('utf-8')
+        #利用json库把json数据转化为python的列表或者字典
+        result = json.loads(html)['translateResult'][0][0]['tgt']
+        return result
 
 if __name__ == '__main__':
     #需要翻译的内容：
