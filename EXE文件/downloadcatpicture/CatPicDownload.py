@@ -4,7 +4,7 @@ import easygui as eg
 import os
 #基础信息，默认尺寸
 msg = '输入图片尺寸'
-title = '喵星人图片下载 v1.0 Developer SonicHuang'
+title = '喵星人图片下载 v1.0  Developer:SonicHuang'
 length = '400'
 width = '600'
 
@@ -14,12 +14,13 @@ while True:
         length = size[0]
         width = size[1]
         url = ''.join(['http://placekitten.com/g/', length, '/', width])
-        #处理网络异常
-        try:
+        #处理网络异常和输入错误
+        try: #int()的参数必须为整数
+            int(length)
+            int(width)
             response = ur.urlopen(url)
-        except:
-            length = '出错了！请检查输入的数据或者网络连接, 再重新启动程序。'
-            width = '点击Cancel或者X退出程序'
+        except: #提示异常信息并返回主循环重新输入
+            eg.msgbox( '出错了！请检查输入的数据(必须为整数)和检查网络是否连接.', title, 'OK')
             continue
         else:
             #直接读取图片，并保存为一个临时图片
