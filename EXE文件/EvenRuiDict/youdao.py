@@ -42,7 +42,7 @@ def translate(content):
         #请求并接受反馈信息, timeout是以秒单位确定连接的超时时间
         response = ur.urlopen(req, timeout = 5)
     except: #提示错误
-        result = 'Error, please check your connection.出问题了, 请检查网络连接。'
+        result = 'Error! Check your connection. 出问题了, 请检查网络连接.'
         return result
     else:
         #读取反馈信息并解码
