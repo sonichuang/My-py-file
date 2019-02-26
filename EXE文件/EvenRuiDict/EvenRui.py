@@ -12,6 +12,10 @@ while True:
     if m != None and m[0] != '' and m[1] == '': #输入正确的状态是首先m的值不为None,在输入框有值，在'意思是'这一栏是空白.
         words = m[0]#再赋值给multenterbox的两个参数，使其同时显示单词和他的翻译结果。
         meaning = yd.translate(words)
+        if 'Error' in meaning:
+            eg.msgbox(meaning, title, 'OK')
+            meaning = ''
+            continue
         m = eg.multenterbox(msg, title,['请输入：', '意思是：'],[words, meaning])
         if m == None: #再点击cancel或者X者退出程序
             break
