@@ -1,3 +1,4 @@
+
 '''本脚本是利用easygui提供的交互程序在placekitten.com下载喵星人图片'''
 import urllib.request as ur
 import easygui as eg
